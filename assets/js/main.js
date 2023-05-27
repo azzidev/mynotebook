@@ -1,3 +1,4 @@
+//get position to open or close navbar
 function getCursorPosition(e){
     var cursorX = e.clientX;
     
@@ -10,18 +11,22 @@ function getCursorPosition(e){
     }
 }
 
+//get notebook and your childs with date url
 function openNotebooksDay(date){
     window.location.href = 'notebooks?date='+date;
 }
 
+//get contents and make page notebook with date url
 function openNotebook(datetime){
     window.location.href = 'notebook?q='+datetime;
 }
 
+//create a new paper modal
 function openModalNewNotebook(){
     $('#modal-new-notebook').addClass('d-block')
 }
 
+// create a new notebook with date url
 function createNewNotebook(){
     var name = ""
     if($('#name-notebook').val() != ''){
@@ -42,17 +47,30 @@ function createNewNotebook(){
     })
 }
 
+//load richtext in notebook page
+if(window.location.href.indexOf('notebook?') != -1){
+    var tempHTML = $('.notebook')[0].innerHTML
+    var editor = new RichTextEditor(".notebook");
+    console.log(tempHTML)
+    editor.setHTMLCode(tempHTML)
+}
+
+// start tooltips and set time sync contents
+var idleTime = 0;
 $(function () {
+    var idleInterval = setInterval(timerIncrement, 10000);
+
+    $(this).mousemove(function (e) {
+        idleTime = 0;
+    });
+    $(this).keypress(function (e) {
+        idleTime = 0;
+    });
+
     $('[data-toggle="tooltip"]').tooltip()
-    if($('.notebook')[0] != undefined){
-        if(window.location.href.indexOf('notebook?') != -1){
-            var tempHTML = $('.notebook')[0].innerHTML
-            var editor = new RichTextEditor(".notebook");
-            editor.setHTMLCode(tempHTML)
-        }
-    }
 })
 
+// get composition to make notebook visualizer
 window.oncontextmenu = function (e){
     if(window.location.href.indexOf('notebooks?') != -1){
         var temp = e.srcElement.onclick.toString();
@@ -66,8 +84,45 @@ window.oncontextmenu = function (e){
         .done(function(data){
             $('.notebook-view').addClass('open')
             $('.notebook-view').html(data)
+            $('body').addClass('notebookOpen')
         })
 
         return false; 
+    }
+}
+
+// close notebook modal view
+$(document).click(function(event) { 
+    var $target = $(event.target);
+    if(!$target.closest('.notebook-view').length && 
+    $('.notebook-view').is(":visible")) {
+        $('.notebook-view').removeClass('open');
+    }        
+});
+
+function timerIncrement() {
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var temp = urlParams.get('q')
+    var content = editor.getHTMLCode()
+    
+    idleTime = idleTime + 1;
+    if (idleTime > 1) {
+        $('.fa-arrow-up').addClass('show')
+        $('.fa-check').removeClass('show')
+        $.ajax({
+            url: "components/save-contents",
+            type: "POST",
+            data: {date: temp, content: content}
+        })
+        .done(function(data){
+            var obj = JSON.parse(data)
+            if(obj.status == 200){
+                setTimeout(() => {
+                    $('.fa-check').addClass('show')
+                    $('.fa-arrow-up').removeClass('show')                    
+                }, 2000);
+            }
+        })
     }
 }

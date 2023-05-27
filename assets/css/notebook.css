@@ -13,6 +13,37 @@ body{
     color: #fff;
 }
 
+.date .sync-content{
+    float: right;
+}
+
+.date .sync-content i.fa-cloud{
+    margin-right: 10px;
+}
+
+.date .sync-content i.fa-check{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #0095ff;
+}
+
+.date .sync-content .fa-arrow-up{
+    position: absolute;
+    top: 22px;
+    right: 29px;
+    color: #ffcc00;
+    font-size: 25px;
+}
+
+.date .sync-content .fa-pencil-alt{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #00ff91;
+    font-size: 30px;
+}
+
 .notebook{
     width: 100%;
     padding: 10px;

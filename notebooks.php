@@ -53,17 +53,25 @@
             <div class="col-md-12 p-0">
                 <div class="row notebooks">
                     <?php
-                        $stmt = $conn->prepare("SELECT * FROM all_notebooks WHERE notebook_uri IN ($uris_notebooks)");
-                        $stmt->execute();
+                        if(isset($uris_notebooks)){
+                            $stmt = $conn->prepare("SELECT * FROM all_notebooks WHERE notebook_uri IN ($uris_notebooks)");
+                            $stmt->execute();
 
-                        if($stmt->rowCount() >= 1){
-                            $objs=$stmt->fetchAll();
-                            foreach($objs AS $obj){
+                            if($stmt->rowCount() >= 1){
+                                $objs=$stmt->fetchAll();
+                                foreach($objs AS $obj){
+                                    echo '
+                                        <div class="col-md-2 notebook" onclick="openNotebook(`'.$obj['last_update'].'`)">
+                                            <h5>'.$obj['notebook_name'].'</h5>
+                                            <hr>
+                                            <p>'.$obj['notebook_content'].'</p>
+                                        </div>
+                                    ';
+                                }
+                            }else{
                                 echo '
-                                    <div class="col-md-2 notebook" onclick="openNotebook(`'.$obj['last_update'].'`)">
-                                        <h5>'.$obj['notebook_name'].'</h5>
-                                        <hr>
-                                        <p>'.$obj['notebook_content'].'</p>
+                                    <div class="default">
+                                        <i class="fas fa-arrow-left mr-5"></i>Use a barra lateral para criar uma nova folha
                                     </div>
                                 ';
                             }
