@@ -31,6 +31,12 @@
     <body onmousemove="getCursorPosition(event)">
         <header class="date">
             <?=$title_page?>
+            <div class="sync-content">
+                <i class="fas fa-arrow-up fade"></i>
+                <i class="fas fa-pencil-alt fade"></i>
+                <i class="fas fa-check fade show"></i>
+                <i class="fas fa-cloud"></i>
+            </div>
         </header>
 
         <div class="row">
