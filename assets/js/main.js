@@ -120,7 +120,9 @@ function timerIncrement() {
             if(obj.status == 200){
                 setTimeout(() => {
                     $('.fa-check').addClass('show')
-                    $('.fa-arrow-up').removeClass('show')                    
+                    $('.fa-arrow-up').removeClass('show')
+                    
+                    window.history.pushState('Update', 'Sync Update', '/mynotebook/notebook?q='+obj.date+'');
                 }, 2000);
             }
         })

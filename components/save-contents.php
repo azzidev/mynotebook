@@ -12,6 +12,6 @@
     $stmt->bindParam(':date', $date);
 
     if($stmt->execute()){
-        echo '{"status": 200, "date": "'.$now.'"}';
+        echo '{"status": 200, "date": "'.str_replace(' ', '%20', $now).'"}';
     }
 ?>
