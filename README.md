@@ -27,7 +27,9 @@ XAMPP Documentation
 
 WampServer Documentation 
 
-Access your browser and upload the SQL file at: localhost/phpmyadmin/index.php?route=/server/import”
+Access your browser and upload the SQL file at: 
+
+``localhost/phpmyadmin/index.php?route=/server/import``
 
 ## You are free, start whenever you want
 Now, access the folder you created for your notebook. 
