@@ -3,6 +3,7 @@
     include('connect-db.php');
 
     $name = $_POST['notebook'];
+    $notebookDate = $_POST['date'];
     $now = date('Y-m-d H:i:s');
     $default = '<p>Você é livre, comece quando quiser</p>';
 
@@ -13,8 +14,9 @@
     $stmt->execute();
     $id = ','.$stmt->lastInsertId();
 
-    $stmt = $conn->prepare("UPDATE days_calendar SET notebook_uri=CONCAT(notebook_uri, :id) VALUES (:notebook, :content, :last_update)");
+    $stmt = $conn->prepare("UPDATE days_calendar SET notebook_uri=CONCAT(notebook_uri, :id) WHERE day_calendar=:dateNote");
     $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':dateNote', $notebookDate);
     $stmt->execute();
 
     echo $now;
