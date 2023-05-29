@@ -7,6 +7,12 @@
     $tempDate = date('Y-m-d', strtotime($date));
     $monthDate = date("F", strtotime($date));
     $tempDate = explode('-', $tempDate);
+    $monthEN = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+    $monthPT = array("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro");
+
+    if($key=array_search($monthDate, $monthEN)){
+        $monthDate = $monthPT[$key];
+    }
 
     $stmt = $conn->prepare("SELECT * FROM days_calendar WHERE day_calendar='$date'");
     $stmt->execute();
