@@ -65,22 +65,26 @@
                                     if(isset($image['src'])){
                                         echo '
                                             <div class=" col-md-3 notebook">
-                                                <icon class="fa-eye" onclick="viewNotebook(`'.$obj['last_update'].'`)"></icon>
-                                                <icon class="fa-pen" onclick="openNotebook(`'.$obj['last_update'].'`)"></icon>
-                                                <img src="'.$image['src'].'"> 
-                                                <h5>'.$obj['notebook_name'].'</h5>
-                                                <hr>
-                                                '.str_replace($image, '', $obj['notebook_content']).'
+                                                <div class="overflow">  
+                                                    <icon class="fa-eye" onclick="viewNotebook(`'.$obj['last_update'].'`)"></icon>
+                                                    <icon class="fa-pen" onclick="openNotebook(`'.$obj['last_update'].'`)"></icon>
+                                                    <img src="'.$image['src'].'"> 
+                                                    <h5>'.$obj['notebook_name'].'</h5>
+                                                    <hr>
+                                                    '.str_replace($image, '', $obj['notebook_content']).'
+                                                </div>
                                             </div>
                                         ';
                                     }else{
                                         echo '
                                             <div class=" col-md-3 notebook">
-                                                <icon class="fa-eye" onclick="viewNotebook(`'.$obj['last_update'].'` )"></icon>    
-                                                <icon class="fa-pen" onclick="openNotebook(`'.$obj['last_update'].'`)"></icon>
-                                                <h5>'.$obj['notebook_name'].'</h5>
-                                                <hr>
-                                                '.$obj['notebook_content'].'
+                                                <div class="overflow">  
+                                                    <icon class="fa-eye" onclick="viewNotebook(`'.$obj['last_update'].'` )"></icon>    
+                                                    <icon class="fa-pen" onclick="openNotebook(`'.$obj['last_update'].'`)"></icon>
+                                                    <h5>'.$obj['notebook_name'].'</h5>
+                                                    <hr>
+                                                    '.$obj['notebook_content'].'
+                                                </div>
                                             </div>
                                         ';
                                     }
