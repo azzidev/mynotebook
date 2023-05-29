@@ -29,6 +29,10 @@ function openModalNewNotebook(){
 // create a new notebook with date url
 function createNewNotebook(){
     var name = ""
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var temp = urlParams.get('date')
+
     if($('#name-notebook').val() != ''){
         name = $('#name-notebook').val();
     }else{
@@ -39,7 +43,7 @@ function createNewNotebook(){
     $.ajax({
         url: 'components/create-new-notebook',
         type: 'POST',
-        data: {notebook: name}
+        data: {notebook: name, date: temp}
     })
     .done(function(data){
         window.location.href = 'http://localhost/notebook/notebook?q='+data
@@ -58,7 +62,9 @@ if(window.location.href.indexOf('notebook?') != -1){
 // start tooltips and set time sync contents
 var idleTime = 0;
 $(function () {
-    var idleInterval = setInterval(timerIncrement, 10000);
+    if(window.location.href.indexOf('notebook?') != -1){
+        var idleInterval = setInterval(timerIncrement, 10000);
+    }
 
     $(this).mousemove(function (e) {
         idleTime = 0;
@@ -70,25 +76,17 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
 
-// get composition to make notebook visualizer
-window.oncontextmenu = function (e){
-    if(window.location.href.indexOf('notebooks?') != -1){
-        var temp = e.srcElement.onclick.toString();
-        temp = temp.split("`");
-
-        $.ajax({
-            url: 'components/get-contents',
-            type: 'GET',
-            data: {date: temp[1]}
-        })
-        .done(function(data){
-            $('.notebook-view').addClass('open')
-            $('.notebook-view').html(data)
-            $('body').addClass('notebookOpen')
-        })
-
-        return false; 
-    }
+function viewNotebook(date){
+    $.ajax({
+        url: 'components/get-contents',
+        type: 'GET',
+        data: {date: date}
+    })
+    .done(function(data){
+        $('.notebook-view').addClass('open')
+        $('.notebook-view').html(data)
+        $('body').addClass('notebookOpen')
+    })
 }
 
 // close notebook modal view

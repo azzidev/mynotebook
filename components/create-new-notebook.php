@@ -11,6 +11,11 @@
     $stmt->bindParam(':content', $default);
     $stmt->bindParam(':last_update', $now);
     $stmt->execute();
+    $id = ','.$stmt->lastInsertId();
+
+    $stmt = $conn->prepare("UPDATE days_calendar SET notebook_uri=CONCAT(notebook_uri, :id) VALUES (:notebook, :content, :last_update)");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
 
     echo $now;
 ?>
