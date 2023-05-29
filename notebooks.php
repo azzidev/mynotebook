@@ -60,13 +60,30 @@
                             if($stmt->rowCount() >= 1){
                                 $objs=$stmt->fetchAll();
                                 foreach($objs AS $obj){
-                                    echo '
-                                        <div class="col-md-2 notebook" onclick="openNotebook(`'.$obj['last_update'].'`)">
-                                            <h5>'.$obj['notebook_name'].'</h5>
-                                            <hr>
-                                            <p>'.$obj['notebook_content'].'</p>
-                                        </div>
-                                    ';
+                                    preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $obj['notebook_content'], $image);
+                                    $obj['notebook_content'] = substr($obj['notebook_content'],0, strpos($obj['notebook_content'], "</p>")+4);
+                                    if(isset($image['src'])){
+                                        echo '
+                                            <div class=" col-md-3 notebook">
+                                                <icon class="fa-eye" onclick="viewNotebook(`'.$obj['last_update'].'`)"></icon>
+                                                <icon class="fa-pen" onclick="openNotebook(`'.$obj['last_update'].'`)"></icon>
+                                                <img src="'.$image['src'].'"> 
+                                                <h5>'.$obj['notebook_name'].'</h5>
+                                                <hr>
+                                                '.str_replace($image, '', $obj['notebook_content']).'
+                                            </div>
+                                        ';
+                                    }else{
+                                        echo '
+                                            <div class=" col-md-3 notebook">
+                                                <icon class="fa-eye" onclick="viewNotebook(`'.$obj['last_update'].'` )"></icon>    
+                                                <icon class="fa-pen" onclick="openNotebook(`'.$obj['last_update'].'`)"></icon>
+                                                <h5>'.$obj['notebook_name'].'</h5>
+                                                <hr>
+                                                '.$obj['notebook_content'].'
+                                            </div>
+                                        ';
+                                    }
                                 }
                             }else{
                                 echo '
