@@ -7,6 +7,12 @@
     $tempDate = date('Y-m-d', strtotime($date));
     $monthDate = date("F", strtotime($date));
     $tempDate = explode('-', $tempDate);
+    $monthEN = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+    $monthPT = array("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro");
+
+    if($key=array_search($monthDate, $monthEN)){
+        $monthDate = $monthPT[$key];
+    }
 
     $stmt = $conn->prepare("SELECT * FROM days_calendar WHERE day_calendar='$date'");
     $stmt->execute();
@@ -29,6 +35,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800;900&display=swap" rel="stylesheet">
+        <title><?=$date_group?> | MyNotebook</title>
     </head>
     <body onmousemove="getCursorPosition(event)">
         <header class="date">
