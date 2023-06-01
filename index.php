@@ -3,8 +3,8 @@
     include('partials/config.php');
 ?>
 <?php
-    $month = "05";
-    $year = "2023";
+    $month = date('m');
+    $year = date('Y');
     
     $start_date = "01-".$month."-".$year;
     $start_time = strtotime($start_date);

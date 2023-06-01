@@ -111,6 +111,11 @@
                             ';
                         }
                     ?>
+
+                    <div class="col-md-3 group-notebooks">
+                        <h1 class="px-3">Aulas<br>Udemy</h1>
+                        <icon class="fa-trash" onclick="deleteGroup(`2023-05-29 11:10:45`)"></icon>
+                    </div>
                 </div>
             </div>
         </div>
