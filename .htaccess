@@ -1,11 +1,10 @@
 RewriteEngine on
 
-# Rewrite /foo/bar to /foo/bar.php
 RewriteRule ^([^.?]+)$ %{REQUEST_URI}.php [L]
 
-# Return 404 if original request is /foo/bar.php
+# Return 404
 RewriteCond %{THE_REQUEST} "^[^ ]* .*?\.php[? ].*$"
 RewriteRule .* - [L,R=404]
 
-# NOTE! FOR APACHE ON WINDOWS: Add [NC] to RewriteCond like this:
+# NOTE! FOR APACHE ON WINDOWS
 # RewriteCond %{THE_REQUEST} "^[^ ]* .*?\.php[? ].*$" [NC]
