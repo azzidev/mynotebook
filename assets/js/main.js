@@ -126,3 +126,7 @@ function timerIncrement() {
         })
     }
 }
+
+function openGroup(id){
+    window.location.href = 'group?uri='+id+''
+}

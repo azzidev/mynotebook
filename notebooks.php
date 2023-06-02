@@ -23,6 +23,33 @@
         }
     }
 
+    $stmtCheck = $conn->prepare("SELECT * FROM group_notebooks WHERE day_create LIKE :date_get");
+    $stmtCheck->bindParam(':date_get', $date);
+    $stmtCheck->execute();
+
+    $iterator = 0;
+    if($stmtCheck->rowCount() >= 1){
+        $objs=$stmtCheck->fetchAll();
+        foreach($objs AS $obj){
+            if($iterator == 0){
+                $group_uris = $obj['notebooks_uri'];
+            }else{
+                $group_uris .= ','.$obj['notebooks_uri'];
+            }
+            $iterator++;
+        }
+    }
+    $group_uris = explode(',', $group_uris);
+
+    foreach($group_uris AS $uri){
+        $uris_notebooks = str_replace($uri.',', '', $uris_notebooks);
+        $uris_notebooks = str_replace($uri, '', $uris_notebooks);
+    }
+
+    if($uris_notebooks == ""){
+        $uris_notebooks = "0";
+    }
+
     $date_group = $tempDate[2] .' de '.$monthDate. ' de '. $tempDate[0];
 ?>
 <!doctype html>
@@ -61,6 +88,7 @@
                 <div class="row notebooks">
                     <?php
                         if(isset($uris_notebooks)){
+                            $arrayGroup = array();
                             $stmt = $conn->prepare("SELECT * FROM all_notebooks WHERE notebook_uri IN ($uris_notebooks)");
                             $stmt->execute();
 
@@ -96,10 +124,20 @@
                                         ';
                                     }
                                 }
-                            }else{
+                            }
+                        }
+
+                        $stmtCheck = $conn->prepare("SELECT * FROM group_notebooks WHERE day_create LIKE :date_get");
+                        $stmtCheck->bindParam(':date_get', $date);
+                        $stmtCheck->execute();
+
+                        if($stmtCheck->rowCount() >= 1){
+                            $objs=$stmtCheck->fetchAll();
+                            foreach($objs AS $obj){
                                 echo '
-                                    <div class="default">
-                                        <i class="fas fa-arrow-left mr-5"></i>Use a barra lateral para criar uma nova folha
+                                    <div class="col-md-3 group-notebooks" onclick="openGroup(`'.$obj['group_uri'].'`)">
+                                        <h1 class="px-3">'.$obj['group_name'].'</h1>
+                                        <icon class="fa-trash" onclick="deleteGroup(`'.$obj['group_uri'].'`)"></icon>
                                     </div>
                                 ';
                             }
@@ -111,11 +149,6 @@
                             ';
                         }
                     ?>
-
-                    <div class="col-md-3 group-notebooks">
-                        <h1 class="px-3">Aulas<br>Udemy</h1>
-                        <icon class="fa-trash" onclick="deleteGroup(`2023-05-29 11:10:45`)"></icon>
-                    </div>
                 </div>
             </div>
         </div>

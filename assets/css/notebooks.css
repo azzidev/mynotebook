@@ -68,6 +68,7 @@ body{
     background: #212121;
     border-radius: 12px;
     height: auto;
+    min-height: 300px;
     max-height: 350px;
     color: white;
     padding: 55px 10px 40px 10px;
