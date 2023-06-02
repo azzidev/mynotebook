@@ -38,16 +38,19 @@
             }
             $iterator++;
         }
-    }
-    $group_uris = explode(',', $group_uris);
 
-    foreach($group_uris AS $uri){
-        $uris_notebooks = str_replace($uri.',', '', $uris_notebooks);
-        $uris_notebooks = str_replace($uri, '', $uris_notebooks);
+        $group_uris = explode(',', $group_uris);
+    
+        foreach($group_uris AS $uri){
+            $uris_notebooks = str_replace($uri.',', '', $uris_notebooks);
+            $uris_notebooks = str_replace($uri, '', $uris_notebooks);
+        }
     }
 
-    if($uris_notebooks == ""){
-        $uris_notebooks = "0";
+    if(isset($uris_notebooks)){
+        if($uris_notebooks == ""){
+            $uris_notebooks = "0";
+        }
     }
 
     $date_group = $tempDate[2] .' de '.$monthDate. ' de '. $tempDate[0];
@@ -59,6 +62,7 @@
         <link rel="stylesheet" href="assets/css/bootstrap.min.css"></link>
         <link rel="stylesheet" href="assets/css/fontawesome-all.min.css"></link>
         <link rel="stylesheet" href="assets/css/notebooks.css">
+        <link rel="stylesheet" href="assets/css/errors.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800;900&display=swap" rel="stylesheet">
@@ -73,6 +77,9 @@
             <div class="navbar">
                 <div class="cell" data-toggle="tooltip" data-placement="right" title="Nova folha" onclick="openModalNewNotebook()">
                     <i class="fas fa-plus-circle"></i>
+                </div>
+                <div class="cell" data-toggle="tooltip" data-placement="right" title="Novo grupo" onclick="openModalNewGroup()">
+                    <i class="fas fa-folder-plus"></i>
                 </div>
                 <div class="cell" data-toggle="tooltip" data-placement="right" title="Selecionar">
                     <i class="fas fa-pen-square"></i>
@@ -135,7 +142,7 @@
                             $objs=$stmtCheck->fetchAll();
                             foreach($objs AS $obj){
                                 echo '
-                                    <div class="col-md-3 group-notebooks" onclick="openGroup(`'.$obj['group_uri'].'`)">
+                                    <div class="col-md-3 group-notebooks" onclick="openGroup(`'.$obj['group_uri'].'`, `'.$obj['day_create'].'`)">
                                         <h1 class="px-3">'.$obj['group_name'].'</h1>
                                         <icon class="fa-trash" onclick="deleteGroup(`'.$obj['group_uri'].'`)"></icon>
                                     </div>
@@ -153,9 +160,9 @@
             </div>
         </div>
 
-        <div class="modal" id="modal-new-notebook">
+        <div class="modal blur" id="modal-new-notebook">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
+                <div class="modal-content shadow">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -174,6 +181,28 @@
                 </div>
             </div>
          </div>
+
+        <div class="modal blur" id="modal-new-group">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content shadow">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="name-group">Nome do grupo</label>
+                                    <input type="text" class="form-control" name="name-group" id="name-group">
+                                    <p class="small mt-2 pb-0">Os cadernos armazenados em um grupo não os afetam, ou seja, caso necessite deletar o grupo, seus notebooks permanecerão no dia criado.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$(this)[0].parentNode.parentNode.parentNode.parentNode.classList.remove('d-block')">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="createNewGroup()">Criar grupo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
          <div class="notebook-view">
             

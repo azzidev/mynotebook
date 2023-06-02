@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="assets/css/bootstrap.min.css"></link>
         <link rel="stylesheet" href="assets/css/fontawesome-all.min.css"></link>
         <link rel="stylesheet" href="assets/css/notebook.css">
+        <link rel="stylesheet" href="assets/css/errors.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800;900&display=swap" rel="stylesheet">

@@ -4,6 +4,7 @@
 
     $name = $_POST['notebook'];
     $notebookDate = $_POST['date'];
+    $group = $_POST['group'];
     $now = date('Y-m-d H:i:s');
     $default = '<p>Você é livre, comece quando quiser</p>';
 
@@ -12,12 +13,19 @@
     $stmt->bindParam(':content', $default);
     $stmt->bindParam(':last_update', $now);
     $stmt->execute();
-    $id = ','.$stmt->lastInsertId();
+    $id = ','.$conn->lastInsertId();
 
     $stmt = $conn->prepare("UPDATE days_calendar SET notebook_uri=CONCAT(notebook_uri, :id) WHERE day_calendar=:dateNote");
     $stmt->bindParam(':id', $id);
     $stmt->bindParam(':dateNote', $notebookDate);
     $stmt->execute();
+
+    if($group != false){
+        $stmt = $conn->prepare("UPDATE group_notebooks SET notebooks_uri=CONCAT(notebooks_uri, :id) WHERE group_uri=:uri");
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':uri', $_POST['group']);
+        $stmt->execute();
+    }
 
     echo $now;
 ?>

@@ -26,12 +26,18 @@ function openModalNewNotebook(){
     $('#modal-new-notebook').addClass('d-block')
 }
 
+//create a new group modal
+function openModalNewGroup(){
+    $('#modal-new-group').addClass('d-block')
+}
+
 // create a new notebook with date url
 function createNewNotebook(){
     var name = ""
     var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);
     var temp = urlParams.get('date')
+    var group = false;
 
     if($('#name-notebook').val() != ''){
         name = $('#name-notebook').val();
@@ -39,16 +45,47 @@ function createNewNotebook(){
         name = 'Ainda sem nome';
     }
 
+    if(urlParams.get('uri') != undefined){
+        group = urlParams.get('uri');
+    }
 
     $.ajax({
         url: 'components/create-new-notebook',
         type: 'POST',
-        data: {notebook: name, date: temp}
+        data: {notebook: name, date: temp, group: group}
     })
     .done(function(data){
-        window.location.href = 'http://localhost/notebook/notebook?q='+data
+        window.location.href = 'http://localhost/mynotebook/notebook?q='+data
         console.log(data)
     })
+}
+
+//create a new group with date url
+function createNewGroup(){
+    if($('#name-group').val() != ''){
+        var name = $('#name-group').val()
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var temp = urlParams.get('date');
+
+        $.ajax({
+            url: 'components/create-new-group',
+            type: 'POST',
+            data: {group: name, date: temp}
+        })
+        .done(function(data){
+            window.location.href = 'http://localhost/mynotebook/group?uri='+data+'&date='+temp
+            console.log(data)
+        })
+    }else{
+        $('#name-group').addClass('border border-2 border-warning')
+        $('#name-group').parent().children()[0].classList.add('error-no-value')
+
+        setTimeout(function(){
+            $('#name-group').removeClass('border border-2 border-warning error-no-value')
+            $('#name-group').parent().children()[0].classList.remove('error-no-value')
+        }, 3000)
+    }
 }
 
 //load richtext in notebook page
@@ -76,6 +113,7 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
 
+// get notebook content to preview in page
 function viewNotebook(date){
     $.ajax({
         url: 'components/get-contents',
@@ -98,6 +136,7 @@ $(document).click(function(event) {
     }        
 });
 
+// function to count seconds to sync content on database
 function timerIncrement() {
     var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);
@@ -127,6 +166,7 @@ function timerIncrement() {
     }
 }
 
-function openGroup(id){
-    window.location.href = 'group?uri='+id+''
+// function open page group
+function openGroup(id, date){
+    window.location.href = 'group?uri='+id+'&date='+date
 }
