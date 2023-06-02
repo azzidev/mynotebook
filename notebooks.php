@@ -180,7 +180,7 @@
                     </div>
                 </div>
             </div>
-         </div>
+        </div>
 
         <div class="modal blur" id="modal-new-group">
             <div class="modal-dialog modal-dialog-centered" role="document">

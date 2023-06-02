@@ -137,7 +137,7 @@
     </head>
     <body onmousemove="getCursorPosition(event)">
         <div class="navbar">
-            <div class="cell">
+            <div class="cell" onclick="openModalSelectYear()">
                 2023
             </div>
             <div class="cell">
@@ -233,6 +233,68 @@
             ?>
         </main>
     </body>
+
+    <div class="modal blur d-block" id="modal-select-year">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content shadow">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2 years">
+                            2020
+                        </div>
+                        <div class="col-md-2 years">
+                            2021
+                        </div>
+                        <div class="col-md-2 years">
+                            2022
+                        </div>
+                        <div class="col-md-2 years active">
+                            2023
+                        </div>
+                        <div class="col-md-2 years">
+                            2024
+                        </div>
+                        <div class="col-md-2 years">
+                            2025
+                        </div>
+                        <div class="col-md-2 years">
+                            2026
+                        </div>
+                        <div class="col-md-2 years">
+                            2027
+                        </div>
+                        <div class="col-md-2 years">
+                            2028
+                        </div>
+                        <div class="col-md-2 years">
+                            2029
+                        </div>
+                        <div class="col-md-2 years">
+                            2030
+                        </div>
+                        <div class="col-md-2 years">
+                            2031
+                        </div>
+                    </div>
+
+                    
+                    <nav class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item"><a class="page-link" href="#">Passado</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Futuro</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$(this)[0].parentNode.parentNode.parentNode.parentNode.classList.remove('d-block')">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/popper.min.js"></script>
