@@ -79,7 +79,6 @@ body{
     text-align: center;
 }
 
-
 .notebooks .group-notebooks icon.fa-trash::before{
     content: "\f1f8";
     font-family: "Font Awesome 5 free";

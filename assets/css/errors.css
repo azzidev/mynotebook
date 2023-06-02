@@ -1,0 +1,9 @@
+.error-no-value::after{
+    content: "Informe os dados necessários";
+    color: var(--warning);
+    font-size: 11px;
+    margin-top: 5px;
+    position: absolute;
+    right: 15px;
+    top: 0px;
+}

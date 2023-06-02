@@ -13,8 +13,21 @@
         if($obj=$stmt->fetch()){
             $name_group = $obj['group_name'];
             $uris_group = $obj['notebooks_uri'];
+            $date = $obj['day_create'];
         }
     }
+
+    $tempDate = date('Y-m-d', strtotime($date));
+    $monthDate = date("F", strtotime($date));
+    $tempDate = explode('-', $tempDate);
+    $monthEN = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+    $monthPT = array("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro");
+
+    if($key=array_search($monthDate, $monthEN)){
+        $monthDate = $monthPT[$key];
+    }
+
+    $date_group = $tempDate[2] .' de '.$monthDate. ' de '. $tempDate[0];
 ?>
 <!doctype html>
 <html>
@@ -26,11 +39,11 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800;900&display=swap" rel="stylesheet">
-        <title><?=$name_group?> | MyNotebook</title>
+        <title><?=$name_group.' | '.$date_group?> | MyNotebook</title>
     </head>
     <body onmousemove="getCursorPosition(event)">
         <header class="date">
-            <?=$name_group?>
+            <?=$name_group.' | '.$date_group?>
         </header>
 
         <div class="row">
@@ -51,7 +64,7 @@
             <div class="col-md-12 p-0">
                 <div class="row notebooks">
                     <?php
-                        if(isset($uris_group)){
+                        if(isset($uris_group) AND $uris_group != ''){
                             $stmt = $conn->prepare("SELECT * FROM all_notebooks WHERE notebook_uri IN ($uris_group)");
                             $stmt->execute();
 
@@ -106,9 +119,9 @@
             </div>
         </div>
 
-        <div class="modal" id="modal-new-notebook">
+        <div class="modal blur" id="modal-new-notebook">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
+                <div class="modal-content shadow">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
