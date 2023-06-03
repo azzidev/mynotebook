@@ -5,6 +5,15 @@
 <?php
     $month = date('m');
     $year = date('Y');
+
+    if(isset($_GET['year'])){
+        $year = $_GET['year'];
+        if(!isset($_GET['month'])){
+            $month = "01";
+        }else{
+            $month = $_GET['month'];
+        }
+    }
     
     $start_date = "01-".$month."-".$year;
     $start_time = strtotime($start_date);
@@ -138,42 +147,42 @@
     <body onmousemove="getCursorPosition(event)">
         <div class="navbar">
             <div class="cell" onclick="openModalSelectYear()">
-                2023
+                <?=$year?>
             </div>
-            <div class="cell">
+            <div class="cell" onclick="getThisMonth(`01`)">
                 Jan.
             </div>
-            <div class="cell">
+            <div class="cell" onclick="getThisMonth(`02`)">
                 Fev.
             </div>
-            <div class="cell">
+            <div class="cell" onclick="getThisMonth(`03`)">
                 Mar.
             </div>
-            <div class="cell">
+            <div class="cell" onclick="getThisMonth(`04`)">
                 Abr.
             </div>
-            <div class="cell active">
+            <div class="cell" onclick="getThisMonth(`05`)">
                 Mai.
             </div>
-            <div class="cell">
+            <div class="cell" onclick="getThisMonth(`06`)">
                 Jun.
             </div>
-            <div class="cell">
+            <div class="cell" onclick="getThisMonth(`07`)">
                 Jul.
             </div>
-            <div class="cell">
+            <div class="cell" onclick="getThisMonth(`08`)">
                 Ago.
             </div>
-            <div class="cell">
+            <div class="cell" onclick="getThisMonth(`09`)">
                 Set.
             </div>
-            <div class="cell">
+            <div class="cell" onclick="getThisMonth(`10`)">
                 Out.
             </div>
-            <div class="cell">
+            <div class="cell" onclick="getThisMonth(`11`)">
                 Nov.
             </div>
-            <div class="cell">
+            <div class="cell" onclick="getThisMonth(`12`)">
                 Dez.
             </div>
         </div>
@@ -234,59 +243,74 @@
         </main>
     </body>
 
-    <div class="modal blur d-block" id="modal-select-year">
+    <div class="modal blur" id="modal-select-year">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content shadow">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-2 years">
-                            2020
-                        </div>
-                        <div class="col-md-2 years">
-                            2021
-                        </div>
-                        <div class="col-md-2 years">
-                            2022
-                        </div>
-                        <div class="col-md-2 years active">
-                            2023
-                        </div>
-                        <div class="col-md-2 years">
-                            2024
-                        </div>
-                        <div class="col-md-2 years">
-                            2025
-                        </div>
-                        <div class="col-md-2 years">
-                            2026
-                        </div>
-                        <div class="col-md-2 years">
-                            2027
-                        </div>
-                        <div class="col-md-2 years">
-                            2028
-                        </div>
-                        <div class="col-md-2 years">
-                            2029
-                        </div>
-                        <div class="col-md-2 years">
-                            2030
-                        </div>
-                        <div class="col-md-2 years">
-                            2031
+                        <div class="col-md-12">
+                            <label for="specific-year">Exibimos uma pequena parcela de tempo nesta janela, entretanto, você pode especificar o ano que desejar no campo abaixo:</p>
+                            <input type="number" class="form-control mb-3" oninput="getThisYear(this.value)">
                         </div>
                     </div>
 
-                    
-                    <nav class="mt-4">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item"><a class="page-link" href="#">Passado</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Futuro</a></li>
-                        </ul>
-                    </nav>
+                    <div class="row">
+                        <?php
+                            $sixLastYears = "";
+                            $sixAfterYears = "";
+                            for($iterator = 6; $iterator >= 1; $iterator--){
+                                if(!isset($_GET['year'])){
+                                    $sixLastYears .= date('Y', strtotime('-'.$iterator.' years')).',';
+                                    $sixAfterYears .= date('Y', strtotime('+'.($iterator-1).' years')).',';
+                                }else{
+                                    $sixLastYears .= date('Y', strtotime('-'.$iterator.' years', strtotime($year.'-01-01'))).',';
+                                    $sixAfterYears .= date('Y', strtotime('+'.($iterator-1).' years', strtotime($year.'-01-01'))).',';
+                                }
+                            }
+
+                            $sixAfterYears = explode(',', $sixAfterYears);
+                            $sixAfterYears = array_reverse($sixAfterYears);
+                            $sixLastYears = explode(',', $sixLastYears);
+
+                            foreach($sixLastYears AS $yearEach){
+                                $active_class = "";
+                                if($yearEach == "".date('Y')."" AND !isset($year)){
+                                    $active_class = "active";
+                                }elseif(isset($_GET['year'])){
+                                    if($yearEach == $_GET['year']){
+                                        $active_class = "active";
+                                    }
+                                }
+
+                                if($yearEach != ''){
+                                    echo '
+                                        <div class="col-md-2 years '.$active_class.'" onclick="getThisYear(`'.$yearEach.'`)">
+                                            '.$yearEach.'
+                                        </div>
+                                    ';
+                                }
+                            }
+                            
+                            foreach($sixAfterYears AS $yearEach){
+                                $active_class = "";
+                                if($yearEach == "".date('Y')."" AND !isset($year)){
+                                    $active_class = "active";
+                                }elseif(isset($_GET['year'])){
+                                    if($yearEach == $_GET['year']){
+                                        $active_class = "active";
+                                    }
+                                }
+
+                                if($yearEach != ''){
+                                    echo '
+                                        <div class="col-md-2 years '.$active_class.'" onclick="getThisYear(`'.$yearEach.'`)">
+                                            '.$yearEach.'
+                                        </div>
+                                    ';
+                                }
+                            }
+                        ?>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$(this)[0].parentNode.parentNode.parentNode.parentNode.classList.remove('d-block')">Cancelar</button>

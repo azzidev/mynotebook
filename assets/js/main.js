@@ -23,12 +23,12 @@ function openNotebook(datetime){
 
 //create a new paper modal
 function openModalNewNotebook(){
-    $('#modal-new-notebook').addClass('d-block')
+    $('#modal-new-notebook').addClass('d-block');
 }
 
 //create a new group modal
 function openModalNewGroup(){
-    $('#modal-new-group').addClass('d-block')
+    $('#modal-new-group').addClass('d-block');
 }
 
 // create a new notebook with date url
@@ -36,7 +36,7 @@ function createNewNotebook(){
     var name = ""
     var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);
-    var temp = urlParams.get('date')
+    var temp = urlParams.get('date');
     var group = false;
 
     if($('#name-notebook').val() != ''){
@@ -55,15 +55,15 @@ function createNewNotebook(){
         data: {notebook: name, date: temp, group: group}
     })
     .done(function(data){
-        window.location.href = 'http://localhost/mynotebook/notebook?q='+data
-        console.log(data)
+        window.location.href = 'http://localhost/mynotebook/notebook?q='+data;
+        console.log(data);
     })
 }
 
 //create a new group with date url
 function createNewGroup(){
     if($('#name-group').val() != ''){
-        var name = $('#name-group').val()
+        var name = $('#name-group').val();
         var queryString = window.location.search;
         var urlParams = new URLSearchParams(queryString);
         var temp = urlParams.get('date');
@@ -74,26 +74,26 @@ function createNewGroup(){
             data: {group: name, date: temp}
         })
         .done(function(data){
-            window.location.href = 'http://localhost/mynotebook/group?uri='+data+'&date='+temp
-            console.log(data)
+            window.location.href = 'http://localhost/mynotebook/group?uri='+data+'&date='+temp;
+            console.log(data);
         })
     }else{
-        $('#name-group').addClass('border border-2 border-warning')
-        $('#name-group').parent().children()[0].classList.add('error-no-value')
+        $('#name-group').addClass('border border-2 border-warning');
+        $('#name-group').parent().children()[0].classList.add('error-no-value');
 
         setTimeout(function(){
-            $('#name-group').removeClass('border border-2 border-warning error-no-value')
-            $('#name-group').parent().children()[0].classList.remove('error-no-value')
+            $('#name-group').removeClass('border border-2 border-warning error-no-value');
+            $('#name-group').parent().children()[0].classList.remove('error-no-value');
         }, 3000)
     }
 }
 
 //load richtext in notebook page
 if(window.location.href.indexOf('notebook?') != -1){
-    var tempHTML = $('.notebook')[0].innerHTML
+    var tempHTML = $('.notebook')[0].innerHTML;
     var editor = new RichTextEditor(".notebook");
-    console.log(tempHTML)
-    editor.setHTMLCode(tempHTML)
+    console.log(tempHTML);
+    editor.setHTMLCode(tempHTML);
 }
 
 // start tooltips and set time sync contents
@@ -110,7 +110,7 @@ $(function () {
         idleTime = 0;
     });
 
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
 })
 
 // get notebook content to preview in page
@@ -121,9 +121,9 @@ function viewNotebook(date){
         data: {date: date}
     })
     .done(function(data){
-        $('.notebook-view').addClass('open')
-        $('.notebook-view').html(data)
-        $('body').addClass('notebookOpen')
+        $('.notebook-view').addClass('open');
+        $('.notebook-view').html(data);
+        $('body').addClass('notebookOpen');
     })
 }
 
@@ -140,8 +140,8 @@ $(document).click(function(event) {
 function timerIncrement() {
     var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);
-    var temp = urlParams.get('q')
-    var content = editor.getHTMLCode()
+    var temp = urlParams.get('q');
+    var content = editor.getHTMLCode();
     
     idleTime = idleTime + 1;
     if (idleTime > 1) {
@@ -153,11 +153,11 @@ function timerIncrement() {
             data: {date: temp, content: content}
         })
         .done(function(data){
-            var obj = JSON.parse(data)
+            var obj = JSON.parse(data);
             if(obj.status == 200){
                 setTimeout(() => {
-                    $('.fa-check').addClass('show')
-                    $('.fa-arrow-up').removeClass('show')
+                    $('.fa-check').addClass('show');
+                    $('.fa-arrow-up').removeClass('show');
                     
                     window.history.pushState('Update', 'Sync Update', '/mynotebook/notebook?q='+obj.date+'');
                 }, 2000);
@@ -168,5 +168,32 @@ function timerIncrement() {
 
 // function open page group
 function openGroup(id, date){
-    window.location.href = 'group?uri='+id+'&date='+date
+    window.location.href = 'group?uri='+id+'&date='+date;
+}
+
+//function open modal to change year calendar
+function openModalSelectYear(){
+    $('#modal-select-year').addClass('d-block');
+}
+
+//function to get year
+function getThisYear(year){
+    if(year.length == 4){
+        window.location.href = 'http://localhost/mynotebook/index?year='+year;
+    }
+}
+
+//function to get month
+function getThisMonth(month){
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var temp = urlParams.get('year');
+    
+    if(temp != ''){
+        window.location.href = 'http://localhost/mynotebook/index?year='+temp+'&month='+month;
+    }else{
+        var currentTime = new Date();
+        var year = currentTime.getFullYear();
+        window.location.href = 'http://localhost/mynotebook/index?year='+year+'&month='+month;
+    }
 }
