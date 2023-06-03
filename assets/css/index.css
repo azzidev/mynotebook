@@ -118,3 +118,32 @@
 .navbar.open{
     left: 0px;
 }
+
+.modal .row{
+    gap: 10px;
+}
+
+.modal .row .col-md-2{
+    max-width: calc(16.666667% - 10px);
+}
+
+.modal .row .years{
+    background: #212121;
+    padding: 10px;
+    font-size: 24px;
+    font-weight: 700;
+    border-radius: 12px;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    cursor: pointer;
+    transition: .7s;
+    text-align: center;
+}
+
+.modal .row .years:hover{
+    transform: scale(1.1);
+    background: #001741;
+}
+
+.modal .row .years.active{
+    background: #0059ff;
+}
