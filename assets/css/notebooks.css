@@ -108,6 +108,10 @@ body{
     padding: 5px;
 }
 
+.notebooks .notebook.selected{
+    background: #001741;
+}
+
 .notebooks .notebook .overflow{
     padding: 0px 5px 0px 5px;
     height: 100%;
@@ -220,4 +224,34 @@ body{
 .notebook-view.open{
     bottom: 0px;
     left: 0px;   
+}
+
+.tool-select{
+    padding: 10px 15px 0px 15px;
+    color: var(--info);
+    display: none;
+    width: fit-content;
+}
+
+.tool-select.active{
+    display: block;
+}
+
+.tool-select h2{
+    font-weight: 500 !important;
+    margin: 0 !important;
+    font-size: 16px !important;
+}
+
+.dynamic-content table{
+    border-radius: 12px;
+    margin: 0;
+}
+
+.dynamic-content table thead{
+    font-size: 18px;
+}
+
+.dynamic-content table tbody tr{
+    font-size: 15px;
 }
