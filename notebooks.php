@@ -84,6 +84,12 @@
                 <div class="cell" data-toggle="tooltip" data-placement="right" title="Selecionar" onclick="activeSelectMode()">
                     <i class="fas fa-pen-square"></i>
                 </div>
+                <div class="cell" data-toggle="tooltip" data-placement="right" title="Mover para grupo" onclick="moveToGroup()">
+                    <i class="fa fa-folder-open"></i>
+                </div>
+                <div class="cell" data-toggle="tooltip" data-placement="right" title="Mover para outro dia" onclick="moveToDay()">
+                    <i class="fa fa-calendar-plus"></i>
+                </div>
                 <div class="cell" data-toggle="tooltip" data-placement="right" title="Remover" onclick="openModalDeleteNotebook()">
                     <i class="fas fa-trash"></i>
                 </div>

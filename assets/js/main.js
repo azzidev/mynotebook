@@ -210,30 +210,47 @@ function openModalDeleteNotebook(element){
         if(element.classList.contains('selected')){
             var elementID = element.children[0].children[0].getAttribute('onclick').split('`')
             stringDates += ','+elementID[1]
-
-            $.ajax({
-                type: 'get',
-                url: 'components/get-metadata',
-                data: {dates: stringDates}
-            })
-            .done(function(data){
-                var json = JSON.parse(data)
-                $('.dynamic-content table tbody').children().remove()
-                
-                json.forEach(obj => {
-                    $('.dynamic-content table tbody').append(`
-                        <tr>
-                            <td>`+obj.name+`</td>
-                            <td>`+obj.size+` KB</td>
-                            <td>`+obj.date+`</td>
-                        </tr>
-                    `)
-                })
-                
-                $('#modal-delete-notebook').addClass('d-block');
-            })
         }
     });
+
+    if(stringDates != "0"){
+        $.ajax({
+            type: 'get',
+            url: 'components/get-metadata',
+            data: {dates: stringDates}
+        })
+        .done(function(data){
+            var json = JSON.parse(data)
+            $('.dynamic-content table tbody').children().remove()
+            
+            json.forEach(obj => {
+                $('.dynamic-content table tbody').append(`
+                    <tr>
+                        <td>`+obj.name+`</td>
+                        <td>`+obj.size+` KB</td>
+                        <td>`+obj.date+`</td>
+                    </tr>
+                `)
+            })
+        })
+
+        $('#modal-delete-notebook').addClass('d-block');
+    }else{
+        if($('.alert-dynamic')[0] == undefined){
+            $('body').append(`
+                <div class="alert alert-warning alert-dismissible alert-dynamic show" role="alert">
+                    <h4 class="alert-heading">Utilize a ferramenta de seleção primeiro</h4>
+                    <p>Você esqueceu de selecionar os notebooks antes de realizar esta ação, tente selecionar algum notebook e depois utilize está ação</p>
+                </div>
+            `)
+    
+            setTimeout(() => {
+                $('.alert-dynamic').fadeOut('slow', () => {
+                    $('.alert-dynamic').remove()     
+                })       
+            }, 5000);
+        }
+    }
 }
 
 // function to active select mode and disabled click in options notebook
