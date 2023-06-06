@@ -189,7 +189,7 @@ function getThisMonth(month){
     var urlParams = new URLSearchParams(queryString);
     var temp = urlParams.get('year');
     
-    if(temp != ''){
+    if(temp != 'null'){
         window.location.href = 'http://localhost/mynotebook/index?year='+temp+'&month='+month;
     }else{
         var currentTime = new Date();
