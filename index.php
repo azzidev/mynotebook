@@ -6,13 +6,18 @@
     $month = date('m');
     $year = date('Y');
 
-    if(isset($_GET['year'])){
+    if(isset($_GET['year']) AND isset($_GET['year']) != 'null'){
         $year = $_GET['year'];
-        if(!isset($_GET['month'])){
+    }else{
+        $year = date('Y');
+    }
+
+    if(!isset($_GET['month'])){
+        if(isset($_GET['year']) AND isset($_GET['year']) != 'null'){
             $month = "01";
-        }else{
-            $month = $_GET['month'];
         }
+    }else{
+        $month = $_GET['month'];
     }
     
     $start_date = "01-".$month."-".$year;

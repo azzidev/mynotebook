@@ -95,6 +95,8 @@
                 <div class="row notebooks">
                     <?php
                         if(isset($uris_notebooks)){
+                            $launchNotebook = false;
+                            $launchGroup = false;
                             $arrayGroup = array();
                             $stmt = $conn->prepare("SELECT * FROM all_notebooks WHERE notebook_uri IN ($uris_notebooks)");
                             $stmt->execute();
@@ -148,7 +150,9 @@
                                     </div>
                                 ';
                             }
-                        }else{
+                        }
+
+                        if($launchNotebook AND $lauchGroup == false){
                             echo '
                                 <div class="default">
                                     <i class="fas fa-arrow-left mr-5"></i>Use a barra lateral para criar uma nova folha
