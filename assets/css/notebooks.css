@@ -142,7 +142,7 @@ body{
     padding: 5px 15px;
     background: #818181;
     border-top-left-radius: 12px;
-    z-index: 9999999999;
+    z-index: 99999;
 }
 
 .notebooks .notebook p,h5{
