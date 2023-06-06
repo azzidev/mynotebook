@@ -81,10 +81,10 @@
                 <div class="cell" data-toggle="tooltip" data-placement="right" title="Novo grupo" onclick="openModalNewGroup()">
                     <i class="fas fa-folder-plus"></i>
                 </div>
-                <div class="cell" data-toggle="tooltip" data-placement="right" title="Selecionar">
+                <div class="cell" data-toggle="tooltip" data-placement="right" title="Selecionar" onclick="activeSelectMode()">
                     <i class="fas fa-pen-square"></i>
                 </div>
-                <div class="cell" data-toggle="tooltip" data-placement="right" title="Remover">
+                <div class="cell" data-toggle="tooltip" data-placement="right" title="Remover" onclick="openModalDeleteNotebook()">
                     <i class="fas fa-trash"></i>
                 </div>
                 <div class="cell" data-toggle="tooltip" data-placement="right" title="Voltar ao calendário" onclick="window.location.href='index'">
@@ -92,6 +92,12 @@
                 </div>
             </div>
             <div class="col-md-12 p-0">
+                <div class="tool-select">
+                    <div class="alert alert-info d-flex align-items-center justify-contente-center" role="alert">
+                        <i class="fa fa-info-circle mr-3"></i>
+                        <h2  data-toggle="tooltip" data-placement="right" title="Quando a ferramenta de seleção está ativada, não é possível clicar nos botões dos notebooks, realize as seleções necessárias e escolha o que fazer. Assim que finalizar, os notebooks voltaram a funcionar como deveria.">A ferramenta de seleção está ativada</h2>
+                    </div>
+                </div>
                 <div class="row notebooks">
                     <?php
                         if(isset($uris_notebooks)){
@@ -170,7 +176,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group">
+                                <div class="form-group mt-3">
                                     <label for="name-notebook">Nome da folha</label>
                                     <input type="text" class="form-control" name="name-notebook" id="name-notebook">
                                     <p class="small mt-2 pb-0">Não é necessário inserir um nome a folha, entretanto, fornecer está informação auxilia nosso buscador.</p>
@@ -192,7 +198,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group">
+                                <div class="form-group mt-3">
                                     <label for="name-group">Nome do grupo</label>
                                     <input type="text" class="form-control" name="name-group" id="name-group">
                                     <p class="small mt-2 pb-0">Os cadernos armazenados em um grupo não os afetam, ou seja, caso necessite deletar o grupo, seus notebooks permanecerão no dia criado.</p>
@@ -203,6 +209,41 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$(this)[0].parentNode.parentNode.parentNode.parentNode.classList.remove('d-block')">Cancelar</button>
                         <button type="button" class="btn btn-primary" onclick="createNewGroup()">Criar grupo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal blur" id="modal-delete-notebook">
+            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+                <div class="modal-content shadow">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <h4>Foi bom o quanto durou...</h4>
+                                    <div class="dynamic-content">
+                                        <table class="table table-dark">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Nome</th>
+                                                    <th scope="col">Tamanho</th>
+                                                    <th scope="col">Editado em</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <p class="small mt-2 pb-0">Você terá 7 dias para recuperar qualquer notebook deletado. Após este período, o notebook será deletado permanentemente.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$(this)[0].parentNode.parentNode.parentNode.parentNode.classList.remove('d-block')">Cancelar</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteNotebooks()">Deletar notebooks</button>
                     </div>
                 </div>
             </div>

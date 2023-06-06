@@ -18,7 +18,9 @@ function openNotebooksDay(date){
 
 //get contents and make page notebook with date url
 function openNotebook(datetime){
-    window.location.href = 'notebook?q='+datetime;
+    if($('.tool-select').hasClass('active') == false){
+        window.location.href = 'notebook?q='+datetime;
+    }
 }
 
 //create a new paper modal
@@ -115,16 +117,18 @@ $(function () {
 
 // get notebook content to preview in page
 function viewNotebook(date){
-    $.ajax({
-        url: 'components/get-contents',
-        type: 'GET',
-        data: {date: date}
-    })
-    .done(function(data){
-        $('.notebook-view').addClass('open');
-        $('.notebook-view').html(data);
-        $('body').addClass('notebookOpen');
-    })
+    if($('.tool-select').hasClass('active') == false){
+        $.ajax({
+            url: 'components/get-contents',
+            type: 'GET',
+            data: {date: date}
+        })
+        .done(function(data){
+            $('.notebook-view').addClass('open');
+            $('.notebook-view').html(data);
+            $('body').addClass('notebookOpen');
+        })
+    }
 }
 
 // close notebook modal view
@@ -195,5 +199,73 @@ function getThisMonth(month){
         var currentTime = new Date();
         var year = currentTime.getFullYear();
         window.location.href = 'http://localhost/mynotebook/index?year='+year+'&month='+month;
+    }
+}
+
+//function to get all notebook selected to confirm delete
+function openModalDeleteNotebook(element){
+    var array = $('.notebooks').children()
+    var stringDates = "0";
+    array.toArray().forEach(element => {
+        if(element.classList.contains('selected')){
+            var elementID = element.children[0].children[0].getAttribute('onclick').split('`')
+            stringDates += ','+elementID[1]
+
+            $.ajax({
+                type: 'get',
+                url: 'components/get-metadata',
+                data: {dates: stringDates}
+            })
+            .done(function(data){
+                var json = JSON.parse(data)
+                $('.dynamic-content table tbody').children().remove()
+                
+                json.forEach(obj => {
+                    $('.dynamic-content table tbody').append(`
+                        <tr>
+                            <td>`+obj.name+`</td>
+                            <td>`+obj.size+` KB</td>
+                            <td>`+obj.date+`</td>
+                        </tr>
+                    `)
+                })
+                
+                $('#modal-delete-notebook').addClass('d-block');
+            })
+        }
+    });
+}
+
+// function to active select mode and disabled click in options notebook
+function activeSelectMode(){
+    if($('.tool-select').hasClass('active')){
+        $('.tool-select').removeClass('active')
+
+        var array = $('.notebooks').children()
+        array.toArray().forEach(element => {
+            console.log(element)
+            if(element.classList.contains('notebook')){
+                element.removeAttribute('onclick','selectNotebook(this)');
+                element.classList.remove('selected')
+            }
+        })
+    }else{
+        $('.tool-select').addClass('active')
+
+        var array = $('.notebooks').children()
+        array.toArray().forEach(element => {
+            console.log(element)
+            if(element.classList.contains('notebook')){
+                element.setAttribute('onclick','selectNotebook(this)');
+            }
+        })
+    }    
+}
+
+function selectNotebook(element){
+    if(element.classList.contains('selected')){
+        element.classList.remove('selected')
+    }else{
+        element.classList.add('selected')        
     }
 }
