@@ -218,6 +218,7 @@ function openModalDeleteNotebook(element){
             })
             .done(function(data){
                 var json = JSON.parse(data)
+                $('.dynamic-content table tbody').children().remove()
                 
                 json.forEach(obj => {
                     $('.dynamic-content table tbody').append(`
