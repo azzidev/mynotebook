@@ -20,8 +20,8 @@
   }
 
 body{
-    background: #414141;
-    font-family: 'Montserrat';
+    background-image: url("https://images8.alphacoders.com/484/484717.jpg");
+    background-size: 100%;
 }
 
 .date{
@@ -62,6 +62,7 @@ body{
     color: white;
     padding: 10px 10px 45px 10px;
     cursor: pointer;
+    box-shadow: 0 .5rem .8rem rgba(0,0,0,.7)!important;
 }
 
 .notebooks .group-notebooks{

@@ -266,7 +266,7 @@ function openModalDeleteNotebook(element){
             })
 
             $('#modal-delete-notebook').addClass('d-block');
-            $('.wait-loading').fadeIn('slow');
+            $('.wait-loading').fadeOut('slow');
         })
     }else{
         if($('.alert-dynamic')[0] == undefined){
@@ -283,7 +283,7 @@ function openModalDeleteNotebook(element){
                 })       
             }, 5000);
         }
-        $('.wait-loading').fadeIn('slow');
+        $('.wait-loading').fadeOut('slow');
     }
 }
 
