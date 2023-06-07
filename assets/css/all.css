@@ -28,7 +28,7 @@
     border-radius: 8px;
     max-width: 450px;
     width: 100%;
-    animation: loading infinite 20s;
+    animation:  loading 8s ease alternate infinite; 
 }
 
 @keyframes loading {
