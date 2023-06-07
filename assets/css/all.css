@@ -10,20 +10,28 @@
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(5px);
+    background: #212121;
+}
+
+.wait-loading img{
+    position: absolute;
+    max-height: 200px;
+    height: 100%;
+    margin-top: -140px;
 }
 
 .wait-loading i{
     font-size: 60px;
     color: white;
-    margin-top: -75px;
+    margin-top: 100px;
 }
 
 .wait-loading::after{
     content: 'DICA: Você pode criar um grupo para cada momento do dia, algo como: Aulas, Projetos, Anotações, etc';
     position: absolute;
-    margin-top: 69px;
+    margin-top: 235px;
     color: #fff;
-    background: #212121;
+    background: #414141;
     padding: 3px 10px;
     border-radius: 8px;
     max-width: 450px;
