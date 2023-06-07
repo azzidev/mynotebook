@@ -213,17 +213,20 @@ body{
     background: #fff;
     border-radius: 20px 20px 0px 0px;
     filter: drop-shadow(5px 5px 10px #212121);
-    bottom: -1999px;
-    left: -1999px;
+    bottom: -1000px;
+    left: -1599px;
     transition: .7s;
     padding: 25px;
     overflow: auto;
-    z-index: 999999999999999999;
+    z-index: 999;
+    filter: opacity(0%);
 }
 
 .notebook-view.open{
     bottom: 0px;
     left: 0px;   
+    visibility: 1;
+    filter: opacity(100%);
 }
 
 .tool-select{
