@@ -109,6 +109,29 @@ $(function () {
         var idleInterval = setInterval(timerIncrement, 10000);
     }
 
+    if(window.location.href.indexOf('index') != -1){
+        var array = $('.navbar').children()
+        
+        array.toArray().forEach(element => {
+            var function_name = element.onclick.toString()
+            var queryString = window.location.search;
+            var urlParams = new URLSearchParams(queryString);
+            var temp = urlParams.get('month');            
+
+            if(Number(temp) >= 1){
+                if(function_name.indexOf(temp+'`') != -1){
+                    element.classList.add('active')
+                }
+            }else{
+                var currentTime = new Date();
+                var month = currentTime.getMonth();
+                temp = Number(month)
+                
+                $('.navbar').children()[temp+1].classList.add('active')
+            }
+        });
+    }
+
     $(this).mousemove(function (e) {
         idleTime = 0;
     });

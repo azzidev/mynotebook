@@ -20,15 +20,20 @@
     display: flex;
     flex-direction: column;
     transition: .5s;
+    width: 100%;
+    min-width: calc(14.2857% - 9px);
+    max-width: calc(14.2857% - 8px);
+    align-items: center;
 }
 
 .calendar .week-header .cell .day-header{
+    display: flex;
     font-weight: 900;
     padding: 5px;
-    font-size: 20px;
-    text-align: text;
+    font-size: 15px;
     color: white;
-    text-align: center;
+    height: 100%;
+    align-items: center;
 }
 
 .calendar .week{
@@ -49,6 +54,10 @@
     cursor: pointer;
 }
 
+.calendar .week .cell.active{
+    background: #0059ff;
+}
+
 .calendar .week .cell:hover{
     transform: scale(1.03);
 }
@@ -57,7 +66,7 @@
     flex: 4;
     font-weight: 900;
     padding-top: 5px;
-    font-size: 40px;
+    font-size: 38px;
     color: white;
     text-align: center;
 }
@@ -66,7 +75,7 @@
     flex: 3;
     padding: 0px 10px;
     color: white;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .calendar .week .cell .activity .line{
