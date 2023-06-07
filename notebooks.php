@@ -63,12 +63,16 @@
         <link rel="stylesheet" href="assets/css/fontawesome-all.min.css"></link>
         <link rel="stylesheet" href="assets/css/notebooks.css">
         <link rel="stylesheet" href="assets/css/errors.css">
+        <link rel="stylesheet" href="assets/css/all.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800;900&display=swap" rel="stylesheet">
         <title><?=$date_group?> | MyNotebook</title>
     </head>
     <body onmousemove="getCursorPosition(event)">
+        <?php
+            include('partials/loading.php');
+        ?>
         <header class="date">
             <?=$date_group?>
         </header>
@@ -101,14 +105,14 @@
                 <div class="tool-select">
                     <div class="alert alert-info d-flex align-items-center justify-contente-center" role="alert">
                         <i class="fa fa-info-circle mr-3"></i>
-                        <h2  data-toggle="tooltip" data-placement="right" title="Quando a ferramenta de seleção está ativada, não é possível clicar nos botões dos notebooks, realize as seleções necessárias e escolha o que fazer. Assim que finalizar, os notebooks voltaram a funcionar como deveria.">A ferramenta de seleção está ativada</h2>
+                        <h2  data-toggle="tooltip" data-placement="right" title="Quando a ferramenta de seleção está ativada, não é possível clicar nos botões dos notebooks">A ferramenta de seleção está ativada</h2>
                     </div>
                 </div>
                 <div class="row notebooks">
                     <?php
+                        $launchNotebook = false;
+                        $launchGroup = false;
                         if(isset($uris_notebooks)){
-                            $launchNotebook = false;
-                            $launchGroup = false;
                             $arrayGroup = array();
                             $stmt = $conn->prepare("SELECT * FROM all_notebooks WHERE notebook_uri IN ($uris_notebooks)");
                             $stmt->execute();

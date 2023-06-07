@@ -35,6 +35,7 @@ function openModalNewGroup(){
 
 // create a new notebook with date url
 function createNewNotebook(){
+    $('.wait-loading').fadeIn('fast');
     var name = ""
     var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);
@@ -58,12 +59,13 @@ function createNewNotebook(){
     })
     .done(function(data){
         window.location.href = 'http://localhost/mynotebook/notebook?q='+data;
-        console.log(data);
+        $('.wait-loading').fadeIn('slow');
     })
 }
 
 //create a new group with date url
 function createNewGroup(){
+    $('.wait-loading').fadeIn('fast');
     if($('#name-group').val() != ''){
         var name = $('#name-group').val();
         var queryString = window.location.search;
@@ -78,6 +80,7 @@ function createNewGroup(){
         .done(function(data){
             window.location.href = 'http://localhost/mynotebook/group?uri='+data+'&date='+temp;
             console.log(data);
+            $('.wait-loading').fadeIn('slow');
         })
     }else{
         $('#name-group').addClass('border border-2 border-warning');
@@ -87,6 +90,7 @@ function createNewGroup(){
             $('#name-group').removeClass('border border-2 border-warning error-no-value');
             $('#name-group').parent().children()[0].classList.remove('error-no-value');
         }, 3000)
+        $('.wait-loading').fadeIn('slow');
     }
 }
 
@@ -113,10 +117,13 @@ $(function () {
     });
 
     $('[data-toggle="tooltip"]').tooltip();
+
+    $('.wait-loading').fadeOut('slow')
 })
 
 // get notebook content to preview in page
 function viewNotebook(date){
+    $('.wait-loading').fadeIn('fast');
     if($('.tool-select').hasClass('active') == false){
         $.ajax({
             url: 'components/get-contents',
@@ -127,6 +134,7 @@ function viewNotebook(date){
             $('.notebook-view').addClass('open');
             $('.notebook-view').html(data);
             $('body').addClass('notebookOpen');
+            $('.wait-loading').fadeIn('slow');
         })
     }
 }
@@ -204,6 +212,7 @@ function getThisMonth(month){
 
 //function to get all notebook selected to confirm delete
 function openModalDeleteNotebook(element){
+    $('.wait-loading').fadeIn('fast');
     var array = $('.notebooks').children()
     var stringDates = "0";
     array.toArray().forEach(element => {
@@ -232,9 +241,10 @@ function openModalDeleteNotebook(element){
                     </tr>
                 `)
             })
-        })
 
-        $('#modal-delete-notebook').addClass('d-block');
+            $('#modal-delete-notebook').addClass('d-block');
+            $('.wait-loading').fadeIn('slow');
+        })
     }else{
         if($('.alert-dynamic')[0] == undefined){
             $('body').append(`
@@ -250,6 +260,7 @@ function openModalDeleteNotebook(element){
                 })       
             }, 5000);
         }
+        $('.wait-loading').fadeIn('slow');
     }
 }
 
