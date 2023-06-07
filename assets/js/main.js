@@ -157,7 +157,7 @@ function viewNotebook(date){
             $('.notebook-view').addClass('open');
             $('.notebook-view').html(data);
             $('body').addClass('notebookOpen');
-            $('.wait-loading').fadeIn('slow');
+            $('.wait-loading').fadeOut('slow');
         })
     }
 }

@@ -1,0 +1,16 @@
+{
+    "short_name": "MyNotebook",
+    "name": "MyNotebook",
+    "start_url": ".",
+    "display": "fullscreen",
+    "theme_color": "#ffffff",
+    "background_color": "#212121",
+    "description": "My site description",
+    "icons": [
+      {
+        "src": "assets/images/logo-app.png",
+        "type": "image/png",
+        "sizes": "800x800"
+      }
+    ]
+  }
