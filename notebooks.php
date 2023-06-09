@@ -74,112 +74,115 @@
         <?php
             include('partials/loading.php');
         ?>
-        <header class="date">
-            <?=$date_group?>
-        </header>
 
-        <div class="row">
-            <div class="navbar">
-                <div class="cell" data-toggle="tooltip" data-placement="right" title="Nova folha" onclick="openModalNewNotebook()">
-                    <i class="fas fa-plus-circle"></i>
-                </div>
-                <div class="cell" data-toggle="tooltip" data-placement="right" title="Novo grupo" onclick="openModalNewGroup()">
-                    <i class="fas fa-folder-plus"></i>
-                </div>
-                <div class="cell" data-toggle="tooltip" data-placement="right" title="Selecionar" onclick="activeSelectMode()">
-                    <i class="fas fa-pen-square"></i>
-                </div>
-                <div class="cell" data-toggle="tooltip" data-placement="right" title="Mover para grupo" onclick="moveToGroup()">
-                    <i class="fa fa-folder-open"></i>
-                </div>
-                <div class="cell" data-toggle="tooltip" data-placement="right" title="Mover para outro dia" onclick="moveToDay()">
-                    <i class="fa fa-calendar-plus"></i>
-                </div>
-                <div class="cell" data-toggle="tooltip" data-placement="right" title="Remover" onclick="openModalDeleteNotebook()">
-                    <i class="fas fa-trash"></i>
-                </div>
-                <div class="cell" data-toggle="tooltip" data-placement="right" title="Voltar ao calendário" onclick="window.location.href='index'">
-                    <i class="fas fa-calendar"></i>
-                </div>
-            </div>
-            <div class="col-md-12 p-0">
-                <div class="tool-select">
-                    <div class="alert alert-info d-flex align-items-center justify-contente-center" role="alert">
-                        <i class="fa fa-info-circle mr-3"></i>
-                        <h2  data-toggle="tooltip" data-placement="right" title="Quando a ferramenta de seleção está ativada, não é possível clicar nos botões dos notebooks">A ferramenta de seleção está ativada</h2>
+        <main>
+            <header class="date">
+                <?=$date_group?>
+            </header>
+
+            <div class="row">
+                <div class="navbar">
+                    <div class="cell" data-toggle="tooltip" data-placement="right" title="Nova folha" onclick="openModalNewNotebook()">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="cell" data-toggle="tooltip" data-placement="right" title="Novo grupo" onclick="openModalNewGroup()">
+                        <i class="fas fa-folder-plus"></i>
+                    </div>
+                    <div class="cell" data-toggle="tooltip" data-placement="right" title="Selecionar" onclick="activeSelectMode()">
+                        <i class="fas fa-pen-square"></i>
+                    </div>
+                    <div class="cell" data-toggle="tooltip" data-placement="right" title="Mover para grupo" onclick="moveToGroup()">
+                        <i class="fa fa-folder-open"></i>
+                    </div>
+                    <div class="cell" data-toggle="tooltip" data-placement="right" title="Mover para outro dia" onclick="moveToDay()">
+                        <i class="fa fa-calendar-plus"></i>
+                    </div>
+                    <div class="cell" data-toggle="tooltip" data-placement="right" title="Remover" onclick="openModalDeleteNotebook()">
+                        <i class="fas fa-trash"></i>
+                    </div>
+                    <div class="cell" data-toggle="tooltip" data-placement="right" title="Voltar ao calendário" onclick="window.location.href='index'">
+                        <i class="fas fa-calendar"></i>
                     </div>
                 </div>
-                <div class="row notebooks">
-                    <?php
-                        $launchNotebook = false;
-                        $launchGroup = false;
-                        if(isset($uris_notebooks)){
-                            $arrayGroup = array();
-                            $stmt = $conn->prepare("SELECT * FROM all_notebooks WHERE notebook_uri IN ($uris_notebooks)");
-                            $stmt->execute();
+                <div class="col-md-12 p-0">
+                    <div class="tool-select">
+                        <div class="alert alert-info d-flex align-items-center justify-contente-center" role="alert">
+                            <i class="fa fa-info-circle mr-3"></i>
+                            <h2  data-toggle="tooltip" data-placement="right" title="Quando a ferramenta de seleção está ativada, não é possível clicar nos botões dos notebooks">A ferramenta de seleção está ativada</h2>
+                        </div>
+                    </div>
+                    <div class="row notebooks">
+                        <?php
+                            $launchNotebook = false;
+                            $launchGroup = false;
+                            if(isset($uris_notebooks)){
+                                $arrayGroup = array();
+                                $stmt = $conn->prepare("SELECT * FROM all_notebooks WHERE notebook_uri IN ($uris_notebooks)");
+                                $stmt->execute();
 
-                            if($stmt->rowCount() >= 1){
-                                $objs=$stmt->fetchAll();
-                                foreach($objs AS $obj){
-                                    preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $obj['notebook_content'], $image);
-                                    $obj['notebook_content'] = substr($obj['notebook_content'],0, strpos($obj['notebook_content'], "</p>")+4);
-                                    if(isset($image['src'])){
-                                        echo '
-                                            <div class=" col-md-3 notebook">
-                                                <div class="overflow">  
-                                                    <icon class="fa-eye" onclick="viewNotebook(`'.$obj['last_update'].'`)"></icon>
-                                                    <icon class="fa-pen" onclick="openNotebook(`'.$obj['last_update'].'`)"></icon>
-                                                    <img src="'.$image['src'].'"> 
-                                                    <h5>'.$obj['notebook_name'].'</h5>
-                                                    <hr>
-                                                    '.str_replace($image, '', $obj['notebook_content']).'
+                                if($stmt->rowCount() >= 1){
+                                    $objs=$stmt->fetchAll();
+                                    foreach($objs AS $obj){
+                                        preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $obj['notebook_content'], $image);
+                                        $obj['notebook_content'] = substr($obj['notebook_content'],0, strpos($obj['notebook_content'], "</p>")+4);
+                                        if(isset($image['src'])){
+                                            echo '
+                                                <div class=" col-md-3 notebook">
+                                                    <div class="overflow">  
+                                                        <icon class="fa-eye" onclick="viewNotebook(`'.$obj['last_update'].'`)"></icon>
+                                                        <icon class="fa-pen" onclick="openNotebook(`'.$obj['last_update'].'`)"></icon>
+                                                        <img src="'.$image['src'].'"> 
+                                                        <h5>'.$obj['notebook_name'].'</h5>
+                                                        <hr>
+                                                        '.str_replace($image, '', $obj['notebook_content']).'
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ';
-                                    }else{
-                                        echo '
-                                            <div class=" col-md-3 notebook">
-                                                <div class="overflow">  
-                                                    <icon class="fa-eye" onclick="viewNotebook(`'.$obj['last_update'].'` )"></icon>    
-                                                    <icon class="fa-pen" onclick="openNotebook(`'.$obj['last_update'].'`)"></icon>
-                                                    <h5>'.$obj['notebook_name'].'</h5>
-                                                    <hr>
-                                                    '.$obj['notebook_content'].'
+                                            ';
+                                        }else{
+                                            echo '
+                                                <div class=" col-md-3 notebook">
+                                                    <div class="overflow">  
+                                                        <icon class="fa-eye" onclick="viewNotebook(`'.$obj['last_update'].'` )"></icon>    
+                                                        <icon class="fa-pen" onclick="openNotebook(`'.$obj['last_update'].'`)"></icon>
+                                                        <h5>'.$obj['notebook_name'].'</h5>
+                                                        <hr>
+                                                        '.$obj['notebook_content'].'
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ';
+                                            ';
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        $stmtCheck = $conn->prepare("SELECT * FROM group_notebooks WHERE day_create LIKE :date_get");
-                        $stmtCheck->bindParam(':date_get', $date);
-                        $stmtCheck->execute();
+                            $stmtCheck = $conn->prepare("SELECT * FROM group_notebooks WHERE day_create LIKE :date_get");
+                            $stmtCheck->bindParam(':date_get', $date);
+                            $stmtCheck->execute();
 
-                        if($stmtCheck->rowCount() >= 1){
-                            $objs=$stmtCheck->fetchAll();
-                            foreach($objs AS $obj){
+                            if($stmtCheck->rowCount() >= 1){
+                                $objs=$stmtCheck->fetchAll();
+                                foreach($objs AS $obj){
+                                    echo '
+                                        <div class="col-md-3 group-notebooks" onclick="openGroup(`'.$obj['group_uri'].'`, `'.$obj['day_create'].'`)">
+                                            <h1 class="px-3">'.$obj['group_name'].'</h1>
+                                            <icon class="fa-trash" onclick="deleteGroup(`'.$obj['group_uri'].'`)"></icon>
+                                        </div>
+                                    ';
+                                }
+                            }
+
+                            if($launchNotebook AND $lauchGroup == false){
                                 echo '
-                                    <div class="col-md-3 group-notebooks" onclick="openGroup(`'.$obj['group_uri'].'`, `'.$obj['day_create'].'`)">
-                                        <h1 class="px-3">'.$obj['group_name'].'</h1>
-                                        <icon class="fa-trash" onclick="deleteGroup(`'.$obj['group_uri'].'`)"></icon>
+                                    <div class="default">
+                                        <i class="fas fa-arrow-left mr-5"></i>Use a barra lateral para criar uma nova folha
                                     </div>
                                 ';
                             }
-                        }
-
-                        if($launchNotebook AND $lauchGroup == false){
-                            echo '
-                                <div class="default">
-                                    <i class="fas fa-arrow-left mr-5"></i>Use a barra lateral para criar uma nova folha
-                                </div>
-                            ';
-                        }
-                    ?>
+                        ?>
+                    </div>
                 </div>
             </div>
-        </div>
+        </main>
 
         <div class="modal blur" id="modal-new-notebook">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -261,7 +264,9 @@
         </div>
 
          <div class="notebook-view">
-            
+            <div class="notebook-content">
+
+            </div>
          </div>
 
         <script src="assets/js/rte.js"></script>

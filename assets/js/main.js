@@ -59,7 +59,7 @@ function createNewNotebook(){
     })
     .done(function(data){
         window.location.href = 'http://localhost/mynotebook/notebook?q='+data;
-        $('.wait-loading').fadeIn('slow');
+        $('.wait-loading').fadeOut('slow');
     })
 }
 
@@ -154,8 +154,9 @@ function viewNotebook(date){
             data: {date: date}
         })
         .done(function(data){
+            $('main').addClass('blur')
             $('.notebook-view').addClass('open');
-            $('.notebook-view').html(data);
+            $('.notebook-view .notebook-content').html(data);
             $('body').addClass('notebookOpen');
             $('.wait-loading').fadeOut('slow');
         })
@@ -168,6 +169,7 @@ $(document).click(function(event) {
     if(!$target.closest('.notebook-view').length && 
     $('.notebook-view').is(":visible")) {
         $('.notebook-view').removeClass('open');
+        $('main').removeClass('blur')
     }        
 });
 

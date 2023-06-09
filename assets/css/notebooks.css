@@ -62,7 +62,7 @@ body{
     color: white;
     padding: 10px 10px 45px 10px;
     cursor: pointer;
-    box-shadow: 0 .5rem .8rem rgba(0,0,0,.7)!important;
+    box-shadow: 0rem -0.4rem 1.8rem rgba(0,0,0,0.5)!important;
 }
 
 .notebooks .group-notebooks{
@@ -217,10 +217,14 @@ body{
     bottom: -1000px;
     left: -1599px;
     transition: .7s;
-    padding: 25px;
-    overflow: auto;
     z-index: 999;
     filter: opacity(0%);
+}
+
+.notebook-view .notebook-content{
+    padding: 25px;
+    overflow: auto;
+    height: 100%;
 }
 
 .notebook-view.open{
