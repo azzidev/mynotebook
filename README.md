@@ -1,6 +1,6 @@
 ###### THIS APPLICATION IS STILL UNDER DEVELOPMENT, SOME ACTIONS MAY NOT WORK OR HAVE STOPPED WORKING OR EXISTING AS THE APPLICATION DEVELOPS. WE RECOMMEND ITS USE ONLY FOR PERSONAL USE. WE REMOVE ANY COMMITMENT TO FUNCTIONALITY, AS WELL AS CONSTANT UPDATES TO RESOLVE PROBLEMS. THE PROJECT IS OPEN SOURCE, THEREFORE YOU CAN MAKE YOUR OWN UPDATES AND CONTRIBUTE TO THE FUNCTIONING OF THE APPLICATION.
 
-<img src="https://brtoworldagency.com/github/mynotebook.png" width="300">
+<img src="https://brtoworldagency.com/github/mynotebook.png" width="400" style="text-align: center">
 
 # MyNotebook
 MyNotebook is a revolutionary innovation that combines the practicality of a digital notebook with the functionality of a calendar. Designed to meet the needs of modern users, this notebook offers an efficient and organized way to keep track of your notes, tasks and appointments over time.
