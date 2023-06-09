@@ -28,7 +28,7 @@
     }else{
         $stmt = $conn->prepare("INSERT INTO days_calendar (days_calendar, notebook_uri, last_update) VALUES (:day_add, :id, :last_update)");
         $stmt->bindParam(':day_add', $notebookDate);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', substr($id, 1));
         $stmt->bindParam(':last_update', $now);
         $stmt->execute();
     }
