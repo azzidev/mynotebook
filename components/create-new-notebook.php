@@ -15,20 +15,20 @@
     $stmt->execute();
     $id = ','.$conn->lastInsertId();
 
-
     $stmt = $conn->prepare("SELECT * FROM days_calendar WHERE day_calendar=:dateNote");
     $stmt->bindParam(':dateNote', $notebookDate);
     $stmt->execute();
 
-    if($stmt->rowCount == 1){
+    if($stmt->rowCount() == 1){
         $stmt = $conn->prepare("UPDATE days_calendar SET notebook_uri=CONCAT(notebook_uri, :id) WHERE day_calendar=:dateNote");
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':dateNote', $notebookDate);
         $stmt->execute();
     }else{
-        $stmt = $conn->prepare("INSERT INTO days_calendar (days_calendar, notebook_uri, last_update) VALUES (:day_add, :id, :last_update)");
+        $id = substr($id, 1);
+        $stmt = $conn->prepare("INSERT INTO days_calendar (day_calendar, notebook_uri, last_update) VALUES (:day_add, :id, :last_update)");
         $stmt->bindParam(':day_add', $notebookDate);
-        $stmt->bindParam(':id', substr($id, 1));
+        $stmt->bindParam(':id', $id);
         $stmt->bindParam(':last_update', $now);
         $stmt->execute();
     }

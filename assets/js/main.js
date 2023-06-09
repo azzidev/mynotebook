@@ -58,6 +58,7 @@ function createNewNotebook(){
         data: {notebook: name, date: temp, group: group}
     })
     .done(function(data){
+        console.log(data)
         window.location.href = 'http://localhost/mynotebook/notebook?q='+data;
         $('.wait-loading').fadeOut('slow');
     })
