@@ -1,7 +1,7 @@
 .calendar{
     width: 100%;
     height: 100vh;
-    background: #212121;
+    background: #C7B198;
     padding: 5px;
 }
 
@@ -15,7 +15,7 @@
 
 .calendar .week-header .cell{
     flex: 1;
-    background: #414141;
+    background: #F0ECE3;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -31,7 +31,7 @@
     font-weight: 900;
     padding: 5px;
     font-size: 15px;
-    color: white;
+    color: #5c5c5c;
     height: 100%;
     align-items: center;
 }
@@ -46,7 +46,7 @@
 .calendar .week .cell{
     flex: 1;
     height: calc(16.66vh - 20px) !important;
-    background: #414141;
+    background: #F0ECE3;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -55,11 +55,15 @@
 }
 
 .calendar .week .cell.active{
-    background: #0059ff;
+    background: #596E79;
 }
 
 .calendar .week .cell:hover{
     transform: scale(1.03);
+}
+
+.calendar .week .cell.active .day{
+    color: #fff;
 }
 
 .calendar .week .cell .day{
@@ -67,14 +71,14 @@
     font-weight: 900;
     padding-top: 5px;
     font-size: 38px;
-    color: white;
+    color: #5c5c5c;
     text-align: center;
 }
 
 .calendar .week .cell .activity{
     flex: 3;
     padding: 0px 10px;
-    color: white;
+    color: #5c5c5c;
     font-size: 14px;
 }
 
@@ -88,14 +92,14 @@
 .navbar{
     position: absolute;
     width: 50px;
-    background: #414141;
+    background: #F0ECE3;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
     height: calc(100vh - 20px);
     margin: 10px 0px;
     display: flex;
     flex-direction: column;
-    filter: drop-shadow(2px 2px 6px #111111);
+    filter: drop-shadow(2px 2px 6px #979797);
     z-index: 99999999;
     padding: 10px 0;
     left: -100px;
@@ -108,19 +112,20 @@
     font-size: 20px;
     font-weight: 700;
     padding: 5px;
-    background: #212121;
-    color: #fff;
+    background: #C7B198;
+    color: #5c5c5c;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
     cursor: pointer
 }
 
 .navbar .cell:hover{
-    background: #001741;
+    background: #596E79;
+    color: #fff;
 }
 
 .navbar .cell.active{
-    background: #0059ff;
+    background: #354046;
     color: #fff;
 }
 
@@ -137,7 +142,7 @@
 }
 
 .modal .row .years{
-    background: #212121;
+    background: #C7B198;
     padding: 10px;
     font-size: 24px;
     font-weight: 700;
@@ -150,9 +155,11 @@
 
 .modal .row .years:hover{
     transform: scale(1.1);
-    background: #001741;
+    background: #596E79;
+    color: #fff;
 }
 
 .modal .row .years.active{
-    background: #0059ff;
+    color: #fff;
+    background: #354046;
 }
