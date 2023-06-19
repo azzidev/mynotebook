@@ -1,4 +1,6 @@
 <img src="https://brtoworldagency.com/github/logo-mynotebook.png" width="300">
+<img src="https://media4.giphy.com/media/g4G27DgZwqaK8qykXS/giphy.gif?cid=6c09b952bg0lvyebl1dpa6ht4o53xjnjkefz3sqxq77p8oyi&ep=v1_gifs_search&rid=giphy.gif&ct=s" width="40">Online project at [MyNotebook by CloudTools](https://mynotebook.cloudtools.be)
+
 ###### THIS APPLICATION IS STILL UNDER DEVELOPMENT, SOME ACTIONS MAY NOT WORK OR HAVE STOPPED WORKING OR EXISTING AS THE APPLICATION DEVELOPS. WE RECOMMEND ITS USE ONLY FOR PERSONAL USE. WE REMOVE ANY COMMITMENT TO FUNCTIONALITY, AS WELL AS CONSTANT UPDATES TO RESOLVE PROBLEMS. THE PROJECT IS OPEN SOURCE, THEREFORE YOU CAN MAKE YOUR OWN UPDATES AND CONTRIBUTE TO THE FUNCTIONING OF THE APPLICATION.
 
 # MyNotebook
@@ -19,16 +21,16 @@ To find the initial folder in WampServer, just follow this sequence:
 
 Now you need to upload our initial SQL file, it will create the entire database, as well as its tables, settings and necessary privileges.
 
-Download initial SQL file
+[Download initial SQL file](https://mynotebook.cloudtools.be/download/project/initial-sql.sql)
 
 ## Turn on the server
 After downloading, it will be necessary to upload, so it will be necessary to turn on the server. 
 
 For this, you can access the documentation provided by the companies that created them. 
 
-XAMPP Documentation 
+[XAMPP Documentation](https://www.apachefriends.org/docs/) 
 
-WampServer Documentation 
+[WampServer Documentation](https://www.wampserver.com/en/category/documentation-en/) 
 
 Access your browser and upload the SQL file at: 
 
