@@ -1,5 +1,5 @@
 <img src="https://brtoworldagency.com/github/logo-mynotebook.png" width="300">
-<img src="https://media4.giphy.com/media/g4G27DgZwqaK8qykXS/giphy.gif?cid=6c09b952bg0lvyebl1dpa6ht4o53xjnjkefz3sqxq77p8oyi&ep=v1_gifs_search&rid=giphy.gif&ct=s" width="40" align="left">Online project at <a href="https://mynotebook.cloudtools.be">MyNotebook by CloudTools</a>
+<img src="https://media4.giphy.com/media/g4G27DgZwqaK8qykXS/giphy.gif?cid=6c09b952bg0lvyebl1dpa6ht4o53xjnjkefz3sqxq77p8oyi&ep=v1_gifs_search&rid=giphy.gif&ct=s" width="27" align="left">Online project at <a href="https://mynotebook.cloudtools.be">MyNotebook by CloudTools</a>
 
 ###### THIS APPLICATION IS STILL UNDER DEVELOPMENT, SOME ACTIONS MAY NOT WORK OR HAVE STOPPED WORKING OR EXISTING AS THE APPLICATION DEVELOPS. WE RECOMMEND ITS USE ONLY FOR PERSONAL USE. WE REMOVE ANY COMMITMENT TO FUNCTIONALITY, AS WELL AS CONSTANT UPDATES TO RESOLVE PROBLEMS. THE PROJECT IS OPEN SOURCE, THEREFORE YOU CAN MAKE YOUR OWN UPDATES AND CONTRIBUTE TO THE FUNCTIONING OF THE APPLICATION.
 
